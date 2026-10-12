@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skins - Naruto Shinobi Universe [SAMP]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #050508;
+      --card-bg: #0c0e15;
+      --card-border: #1a1f2c;
+      --accent-red: #ff1e1e;
+      --accent-orange: #ff5500;
+      --accent-silver: #d4d7de;
+      --accent-glow: rgba(255, 30, 30, 0.35);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 85, 0, 0.06) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 30, 30, 0.06) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(180deg, rgba(12, 14, 21, 0.95) 0%, rgba(5, 5, 8, 0.9) 100%);
+      border-bottom: 2px solid var(--accent-red);
+      box-shadow: 0 4px 25px rgba(255, 30, 30, 0.2);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .server-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--accent-red);
+      box-shadow: 0 0 10px rgba(255, 30, 30, 0.4);
+      background: #000;
+    }
+
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #fff, var(--accent-silver), var(--accent-red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      color: var(--accent-orange);
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .btn-admin {
+      background: rgba(255, 30, 30, 0.1);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+      padding: 10px 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-admin:hover {
+      background: var(--accent-red);
+      color: #fff;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    /* FILTROS E PESQUISA */
+    .controls-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      padding: 12px 16px 12px 42px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-red);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      fill: var(--text-muted);
+      width: 18px;
+      height: 18px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-red);
+      color: #fff;
+      border-color: var(--accent-red);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* GRID DE SKINS */
+    .skins-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .skin-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skin-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-red);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px var(--accent-glow);
+    }
+
+    .skin-img-container {
+      width: 100%;
+      height: 280px;
+      background: #030406;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skin-img {
+      max-height: 90%;
+      max-width: 90%;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.8));
+      transition: transform 0.3s;
+    }
+
+    .skin-card:hover .skin-img {
+      transform: scale(1.05);
+    }
+
+    .skin-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(5, 5, 8, 0.85);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-silver);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+    }
+
+    .skin-info {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .skin-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .skin-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .skin-id {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .skin-id span {
+      color: var(--accent-orange);
+      font-weight: 700;
+    }
+
+    .skin-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: #10b981;
+    }
+
+    .btn-copy {
+      margin-top: 12px;
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: var(--accent-silver);
+      color: #000;
+      border-color: var(--accent-silver);
+    }
+
+    .btn-remove {
+      margin-top: 8px;
+      width: 100%;
+      background: rgba(255, 30, 30, 0.1);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .btn-remove:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    /* MODAL ADMIN & LOGIN */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      background: var(--card-bg);
+      border: 1px solid var(--accent-red);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(255, 30, 30, 0.2);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .modal-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 18px;
+      color: var(--accent-red);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--accent-red);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-red);
+      border: none;
+      color: #fff;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+      box-shadow: 0 0 15px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    .btn-logout {
+      background: rgba(255, 30, 30, 0.1);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .btn-logout:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      border: 1px dashed var(--card-border);
+      border-radius: 12px;
+    }
+
+    .empty-state h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent-red);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .controls-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filters {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <img src="Logo_Agronegocio_Branco_e_Verde.png" alt="Logo NSU" class="server-logo">
+      <div>
+        <div class="brand-title">Naruto Shinobi Universe</div>
+        <div class="brand-sub">Catálogo de Skins [SAMP]</div>
+      </div>
+    </div>
+
+    <button class="btn-admin" id="btnOpenAdmin">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8s0 0 0 0z"/>
+      </svg>
+      Painel Admin
+    </button>
+  </header>
+
+  <div class="container">
+    
+    <!-- BARRA DE CONTROLES -->
+    <div class="controls-panel">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar por Nome ou ID do SAMP...">
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">Todas</button>
+        <button class="filter-btn" data-filter="Geral">Geral</button>
+        <button class="filter-btn" data-filter="Masculina">Masculina</button>
+        <button class="filter-btn" data-filter="Feminina">Feminina</button>
+        <button class="filter-btn" data-filter="Exclusivas">Exclusivas</button>
+      </div>
+    </div>
+
+    <!-- GRID DE SKINS -->
+    <div class="skins-grid" id="skinsContainer"></div>
+
+  </div>
+
+  <!-- MODAL DE LOGIN ADMIN -->
+  <div class="modal-overlay" id="modalLogin">
+    <div class="modal-box" style="max-width: 380px;">
+      <div class="modal-header">
+        <div class="modal-title">Acesso Restrito</div>
+        <button class="modal-close" onclick="closeModal('modalLogin')">&times;</button>
+      </div>
+      <form id="formLogin">
+        <div class="form-group">
+          <label>Senha do Administrador</label>
+          <input type="password" id="loginPassword" placeholder="Digite a senha..." required>
+        </div>
+        <button type="submit" class="btn-submit">Entrar no Painel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL DO PAINEL ADMIN -->
+  <div class="modal-overlay" id="modalAdmin">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">Adicionar Nova Skin</div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-logout" id="btnLogout">Sair</button>
+          <button class="modal-close" onclick="closeModal('modalAdmin')">&times;</button>
+        </div>
+      </div>
+      <form id="formSkin">
+        <div class="form-group">
+          <label>Nome da Skin / Personagem</label>
+          <input type="text" id="skinName" placeholder="Ex: Naruto Modo Sábio" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>ID do SAMP</label>
+            <input type="number" id="skinId" placeholder="Ex: 310" required>
+          </div>
+          <div class="form-group">
+            <label>Categoria</label>
+            <select id="skinCategory">
+              <option value="Geral">Geral</option>
+              <option value="Masculina">Masculina</option>
+              <option value="Feminina">Feminina</option>
+              <option value="Exclusivas">Exclusivas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Preço / Obtenção (Opcional)</label>
+          <input type="text" id="skinPrice" placeholder="Ex: R$ 20,00 ou Grátis">
+        </div>
+
+        <div class="form-group">
+          <label>Imagem do Seu Computador</label>
+          <input type="file" id="skinFile" accept="image/*">
+        </div>
+
+        <div class="form-group">
+          <label>Ou Link de Imagem (URL Externa)</label>
+          <input type="url" id="skinUrl" placeholder="https://exemplo.com/skin.png">
+        </div>
+
+        <button type="submit" class="btn-submit">Cadastrar Skin</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- NOTIFICAÇÃO TOAST -->
+  <div class="toast" id="toastNotification">Mensagem</div>
+
+  <script>
+    const ADMIN_PASS = "narutoshinobiuniverse2026";
+    let isAdminLoggedIn = false;
+
+    const initialSkins = [
+      {
+        id: 1,
+        name: "Naruto Uzumaki",
+        sampId: "310",
+        category: "Masculina",
+        price: "Grátis",
+        image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/naruto-render-is-render.png"
+      },
+      {
+        id: 2,
+        name: "Sakura Haruno",
+        sampId: "311",
+        category: "Feminina",
+        price: "Grátis",
+        image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/sakura-haruno-render-is-render.png"
+      },
+      {
+        id: 3,
+        name: "Ninja Iniciante",
+        sampId: "1",
+        category: "Geral",
+        price: "Grátis",
+        image: "https://wiki.sa-mp.com/w/images/5/5a/Skin_1.png"
+      },
+      {
+        id: 4,
+        name: "Madara Uchiha VIP",
+        sampId: "312",
+        category: "Exclusivas",
+        price: "R$ 30,00",
+        image: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/madara-uchiha-render-is-render.png"
+      }
+    ];
+
+    let skins = JSON.parse(localStorage.getItem('nsu_skins')) || initialSkins;
+
+    if (sessionStorage.getItem('nsu_admin_auth') === 'true') {
+      isAdminLoggedIn = true;
+    }
+
+    const skinsContainer = document.getElementById('skinsContainer');
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const btnOpenAdmin = document.getElementById('btnOpenAdmin');
+    const modalLogin = document.getElementById('modalLogin');
+    const modalAdmin = document.getElementById('modalAdmin');
+    const formLogin = document.getElementById('formLogin');
+    const formSkin = document.getElementById('formSkin');
+    const btnLogout = document.getElementById('btnLogout');
+
+    let currentFilter = 'all';
+
+    function renderSkins() {
+      const searchTerm = searchInput.value.toLowerCase();
+      skinsContainer.innerHTML = '';
+
+      const filteredSkins = skins.filter(skin => {
+        const matchesFilter = currentFilter === 'all' || skin.category === currentFilter;
+        const matchesSearch = skin.name.toLowerCase().includes(searchTerm) || skin.sampId.toString().includes(searchTerm);
+        return matchesFilter && matchesSearch;
+      });
+
+      if (filteredSkins.length === 0) {
+        skinsContainer.innerHTML = `
+          <div class="empty-state">
+            <h3>Nenhuma skin encontrada</h3>
+            <p>Tente ajustar os filtros ou os termos da pesquisa.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filteredSkins.forEach(skin => {
+        const card = document.createElement('div');
+        card.className = 'skin-card';
+        card.innerHTML = `
+          <div class="skin-img-container">
+            <span class="skin-badge">${skin.category}</span>
+            <img class="skin-img" src="${skin.image}" alt="${skin.name}" onerror="this.src='https://via.placeholder.com/200x250/0c0e15/94a3b8?text=Sem+Imagem'">
+          </div>
+          <div class="skin-info">
+            <div class="skin-title">${skin.name}</div>
+            <div class="skin-meta">
+              <div class="skin-id">ID SAMP: <span>#${skin.sampId}</span></div>
+              <div class="skin-price">${skin.price || 'Grátis'}</div>
+            </div>
+            <button class="btn-copy" onclick="copyId('${skin.sampId}')">Copiar ID</button>
+            ${isAdminLoggedIn ? `<button class="btn-remove" onclick="removeSkin(${skin.id})">Remover Skin</button>` : ''}
+          </div>
+        `;
+        skinsContainer.appendChild(card);
+      });
+    }
+
+    btnOpenAdmin.addEventListener('click', () => {
+      if (isAdminLoggedIn) {
+        modalAdmin.classList.add('active');
+      } else {
+        modalLogin.classList.add('active');
+      }
+    });
+
+    formLogin.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pass = document.getElementById('loginPassword').value;
+
+      if (pass === ADMIN_PASS) {
+        isAdminLoggedIn = true;
+        sessionStorage.setItem('nsu_admin_auth', 'true');
+        closeModal('modalLogin');
+        document.getElementById('loginPassword').value = '';
+        modalAdmin.classList.add('active');
+        showToast('Login de Admin realizado com sucesso!');
+        renderSkins();
+      } else {
+        alert('Senha incorreta!');
+      }
+    });
+
+    btnLogout.addEventListener('click', () => {
+      isAdminLoggedIn = false;
+      sessionStorage.removeItem('nsu_admin_auth');
+      closeModal('modalAdmin');
+      showToast('Você saiu do modo Admin.');
+      renderSkins();
+    });
+
+    formSkin.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('skinName').value;
+      const sampId = document.getElementById('skinId').value;
+      const category = document.getElementById('skinCategory').value;
+      const price = document.getElementById('skinPrice').value;
+      const fileInput = document.getElementById('skinFile');
+      const urlInput = document.getElementById('skinUrl').value;
+
+      const saveSkin = (imageUrl) => {
+        const newSkin = {
+          id: Date.now(),
+          name,
+          sampId,
+          category,
+          price: price || 'Grátis',
+          image: imageUrl || 'https://via.placeholder.com/200x250/0c0e15/94a3b8?text=Sem+Imagem'
+        };
+
+        skins.unshift(newSkin);
+        localStorage.setItem('nsu_skins', JSON.stringify(skins));
+        renderSkins();
+        closeModal('modalAdmin');
+        formSkin.reset();
+        showToast('Skin cadastrada com sucesso!');
+      };
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          saveSkin(event.target.result);
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        saveSkin(urlInput);
+      }
+    });
+
+    window.removeSkin = function(id) {
+      if (!isAdminLoggedIn) return;
+      if (confirm('Tem certeza que deseja remover esta skin?')) {
+        skins = skins.filter(s => s.id !== id);
+        localStorage.setItem('nsu_skins', JSON.stringify(skins));
+        renderSkins();
+        showToast('Skin removida!');
+      }
+    };
+
+    window.copyId = function(id) {
+      navigator.clipboard.writeText(id);
+      showToast(`ID #${id} copiado para a área de transferência!`);
+    };
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    window.closeModal = function(id) {
+      document.getElementById(id).classList.remove('active');
+    };
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderSkins();
+      });
+    });
+
+    searchInput.addEventListener('input', renderSkins);
+
+    renderSkins();
+  </script>
+</body>
+</html>
